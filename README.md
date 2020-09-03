@@ -1,1 +1,1 @@
-Project files for the commercial Dyokara ecommerce website.
+Project files for the Dyokara ecommerce website.
