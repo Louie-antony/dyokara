@@ -9,23 +9,24 @@ const router = express.Router();
 
 //Index
 
-router.get("/:category", 
+router.get("/", 
     (req, res) =>
     {
-        Product.find({category: req.params.category},
-            (err, foundProducts) =>
-            {
-                if(err)
-                {
-                    console.log(err);
-                    res.redirect("/");
-                }
-                else
-                {
-                    res.render("product/index", {products: foundProducts});
-                }
-            }
-        )
+        res.render("product/index");
+        // Product.find({category: req.params.category},
+        //     (err, foundProducts) =>
+        //     {
+        //         if(err)
+        //         {
+        //             console.log(err);
+        //             res.redirect("/");
+        //         }
+        //         else
+        //         {
+        //             res.render("product/index", {products: foundProducts});
+        //         }
+        //     }
+        // )
     }
 )
 
@@ -44,6 +45,15 @@ router.post("/", middleware.isAdmin,
     (req, res) =>
     {
         
+    }
+)
+
+//Show 
+
+router.get("/:id",
+    (req, res) =>
+    {
+
     }
 )
 
