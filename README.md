@@ -8,6 +8,6 @@ Wishlist                                                                        
 Provide address after proceeding to checkout (after third party payment is implemented) --(minor)
 Categories for each product (separate index routes)                                     --(very minor) (later)
 Admin account                                                                           --(very minor) 
-3rd party payment                                                                       --(major) (later)
+3rd party payment                                                                       --(major)      (later)
 Payment and purchase history                                                            --(major)
-Search functionality (autofill, AJAX)                                                   --(major) (later)
+Search functionality (autofill, AJAX)                                                   --(major)      (later)
