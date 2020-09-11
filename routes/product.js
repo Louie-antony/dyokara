@@ -7,54 +7,76 @@ const middleware = require("../middleware");
 
 const router = express.Router();
 
-
+//Index
 
 router.get("/", 
     (req, res) =>
-    {	Product.find({},function(err, products){
-		if(err){
-			res.send("Error");
-		}else{
-			res.render("product/index",{products: products, currentUser: req.user});
-		}
-	})
-        
-        // Product.find({category: req.params.category},
-        //     (err, foundProducts) =>
-        //     {
-        //         if(err)
-        //         {
-        //             console.log(err);
-        //             res.redirect("/");
-        //         }
-        //         else
-        //         {
-        //             res.render("product/index", {products: foundProducts});
-        //         }
-        //     }
-        // )
+    {	
+        Product.find({},
+            (err, products) =>
+            {
+                if(err)
+                {
+                    res.send("Error");
+                }
+                else
+                {
+                    res.render("product/index",{products: products});
+                }
+            }
+        );
+    }
+)
+
+//Index - category
+
+router.get("/:category", 
+    (req, res) =>
+    {	
+        Product.find({category: req.params.category},
+            (err, foundProducts) =>
+            {
+                if(err)
+                {
+                    console.log(err);
+                    res.redirect("/");
+                }
+                else
+                {
+                    res.render("product/index", {products: foundProducts});
+                }
+            }
+        );
     }
 )
 
 //New
 
-
+router.get("/new",
+    (req, res) =>
+    {
+        res.render("/products/new");
+    }
+)
 
 //Create 
 
-router.post("/newProduct",
+router.post("/",
     (req, res) =>
     {
         Product.create({name: req.body.name, shortDesc: req.body.shortDesc, longDesc: req.body.longDesc, price: req.body.price, specifications: req.body.specifications},
-            (err,noErr) =>  
+            (err, product) =>  
             {
-                if(err){
+                if(err)
+                {
                     res.send("Error");
-                }else{
+                }
+                else
+                {
                     res.redirect("/products");
                 }
             }
-            )
+        );
     }
 )
 
@@ -63,14 +85,20 @@ router.post("/newProduct",
 router.get("/:id",
     (req, res) =>
     {
-        Product.findById(req.params.id).populate("reviews").exec(function(err, found){
-            if(err){
-                alert("Error");
+        Product.findById(req.params.id).populate("reviews").exec
+        (
+            (err, foundProduct) =>
+            {
+                if(err)
+                {
+                    res.send("Error");
+                }
+                else
+                {
+                    res.render("product/show",{product: foundProduct});
+                }
             }
-            else{
-                res.render("product/show",{product: found,currentUser: req.user});
-            }
-        })
+        );
     }
 )
 
@@ -80,11 +108,11 @@ router.get("/:id/edit", middleware.isAdmin,
     (req, res) =>
     {
         Product.findById(req.params.id,
-            function(err, foundProduct)
+            (err, foundProduct) =>
             {
                 if(err)
                 {
-                    alert("Error");
+                    res.send("Error");
                 }
                 else
                 {
@@ -126,7 +154,7 @@ router.put("/:id", middleware.isAdmin,
                     )
                 }
             }    
-        )
+        );
     }
 )
 
@@ -150,9 +178,5 @@ router.delete("/:id", middleware.isAdmin,
         )
     }
 )
-
-//
-
-
 
 module.exports = router;

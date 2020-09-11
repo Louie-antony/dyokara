@@ -9,10 +9,11 @@ methodOverride = require("method-override"),
 
 //Routes
 
-const productRoutes = require("./routes/product"),
-      reviewRoutes  = require("./routes/review"),
-      userRoutes    = require("./routes/user"),
-      authRoutes    = require("./routes/index");
+const productRoutes  = require("./routes/product"),
+      reviewRoutes   = require("./routes/review"),
+      cartRoutes     = require("./routes/cart"),
+      wishlistRoutes = require("./routes/wishlist"),
+      authRoutes     = require("./routes/index");
 
 //Models
 
@@ -71,10 +72,13 @@ app.use
 
 app.use("/products", productRoutes);
 app.use("/products/:id/reviews", reviewRoutes);
-app.use("/users/:id/cart", userRoutes);
+app.use("/users/:id/cart", cartRoutes);
+app.use("/users/:id/wishlist", wishlistRoutes);
 app.use(authRoutes);
 
-app.listen(process.env.PORT,process.env.IP, 
+const port = process.env.PORT || 3000;
+
+app.listen(port, 
     () =>
     {
         console.log("Server online.....");

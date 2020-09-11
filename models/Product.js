@@ -9,7 +9,8 @@ let ProductSchema = new mongoose.Schema
             longDesc: String,
             price: Number,
             specifications: {},
-            reviews:[
+            reviews:
+            [
                 {
                     type: mongoose.Schema.Types.ObjectId,
                     ref: "Review"
